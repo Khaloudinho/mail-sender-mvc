@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <title><spring:message code="send.tab.title" /></title>
@@ -34,15 +34,13 @@
         #content { width: 400px; height: 100px; }
     </style>
 
-    <script type="text/javascript">
-        $("#submit").click(function() {
-            if ($("#subject").is(":empty")){
-                $("#subjectErrors").text("The field << subject >> cannot be empty ! ");
-            }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-            if ($("#content").is(":empty")){
-                $("#contentErrors").text("The field << content >> cannot be empty ! ");
-            }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("h1").html() == "Sending a mail") $("#en").hide();
+            if ($("h1").html() == "Envoi d'un mail") $("#fr").hide();
+            if ($("h1").html() == "Enviando un correo electronico") $("#es").hide();
         });
     </script>
 </head>
@@ -52,9 +50,9 @@
     <h1><spring:message code="send.page.title" /></h1>
 
     <p class="languages">
-        <a href="/send?lang=fr"><spring:message code="send.language.fr" /></a> |
-        <a href="/send?lang=es"><spring:message code="send.language.es" /></a> |
-        <a href="/send?lang=en"><spring:message code="send.language.en" /></a>
+        <a id="fr" href="/send?lang=fr"><spring:message code="send.language.fr" /> </a>
+        <a id="es" href="/send?lang=es"><spring:message code="send.language.es" /> </a>
+        <a id="en" href="/send?lang=en"><spring:message code="send.language.en" /></a>
     </p>
 
     <br />
@@ -65,18 +63,20 @@
 
     <hr>
 
+    <c:if test="${errors != null}">
+        <p>${errors}</p>
+    </c:if>
+
     <form method="post" action="/send">
 
         <p class="subject">
             <p class="label"><label><spring:message code="send.label.subject" /></label></p>
-            <p class="input"><input type="text" name="subject" id="subject" /></p>
-            <p id="subjectErrors"></p>
+            <p class="input"><input type="text" name="subject" id="subject" required /></p>
         </p>
 
         <p class="content">
             <p class="label"><label><spring:message code="send.label.content" /></label></p>
-            <p class="input"><textarea name="content" id="content"></textarea></p>
-            <p id="contentErrors"></p>
+            <p class="input"><textarea name="content" id="content" required></textarea></p>
         </p>
 
         <button type="submit" id="submit"><spring:message code="send.button.submit" /></button>

@@ -6,6 +6,7 @@ import fr.miage.m2.mail.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -36,5 +37,12 @@ public class MailController {
     public String sendMail(String subject, String content) {
         mailSender.send(subject, content);
         return "redirect:/mailbox";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String catchErrors(Exception ex, Model model) {
+        ex.printStackTrace();
+        model.addAttribute("error", ex.toString());
+        return "redirect:/send";
     }
 }

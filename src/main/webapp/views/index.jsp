@@ -32,6 +32,16 @@
         table { border-collapse: collapse; margin-left: auto; margin-right: auto; }g
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("h1").html() == "Mailbox") $("#en").hide();
+            if ($("h1").html() == "Boite de reception") $("#fr").hide();
+            if ($("h1").html() == "Bendeja de entrada") $("#es").hide();
+        });
+    </script>
+
 </head>
 
 <body>
@@ -39,9 +49,9 @@
     <h1><spring:message code="mailbox.page.title" /></h1>
 
     <p class="languages">
-        <a href="/mailbox?lang=fr"><spring:message code="mailbox.language.fr" /></a> |
-        <a href="/mailbox?lang=es"><spring:message code="mailbox.language.es" /></a> |
-        <a href="/mailbox?lang=en"><spring:message code="mailbox.language.en" /></a>
+        <a id="fr" href="/mailbox?lang=fr"><spring:message code="mailbox.language.fr" /> </a>
+        <a id="es" href="/mailbox?lang=es"><spring:message code="mailbox.language.es" /> </a>
+        <a id="en" href="/mailbox?lang=en"><spring:message code="mailbox.language.en" /></a>
     </p>
 
     <br />
