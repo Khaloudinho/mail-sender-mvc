@@ -57,7 +57,7 @@ public class MailSender implements MailSenderService {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(this.from));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.to));
             message.setSubject(subject);
             message.setText(content);
 
@@ -94,14 +94,6 @@ public class MailSender implements MailSenderService {
         return password;
     }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
     public void setSmtp(String smtp) {
         this.smtp = smtp;
     }
@@ -124,5 +116,13 @@ public class MailSender implements MailSenderService {
 
     public String getFrom() {
         return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 }

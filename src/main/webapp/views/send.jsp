@@ -13,7 +13,7 @@
         th, td { border: 1px solid black; }
         a, a:hover { text-decoration: none; color: white; }
         .languages a, .languages a:hover { text-decoration: none; color: black; }
-        button, button:hover, button:focus{
+        button, button:hover, button:focus {
             width: 250px;
             height: 50px;
             background: #3498db;
@@ -80,6 +80,8 @@
         </p>
 
         <button type="submit" id="submit"><spring:message code="send.button.submit" /></button>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
     </form>
 

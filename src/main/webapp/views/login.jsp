@@ -29,7 +29,9 @@
             padding: 10px 20px 10px 20px;
             text-decoration: none;
         }
-        table { border-collapse: collapse; margin-left: auto; margin-right: auto; }g
+        table { border-collapse: collapse; margin-left: auto; margin-right: auto; }
+        .label { font-weight: bold; }
+        #username, #password { width: 200px; height: 30px; }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -46,35 +48,25 @@
 
 <body>
 
-    <h1><spring:message code="mailbox.page.title" /></h1>
+    <h1>Login page</h1>
 
-    <p class="languages">
-        <a id="fr" href="/mailbox?lang=fr"><spring:message code="mailbox.language.fr" /> </a>
-        <a id="es" href="/mailbox?lang=es"><spring:message code="mailbox.language.es" /> </a>
-        <a id="en" href="/mailbox?lang=en"><spring:message code="mailbox.language.en" /></a>
-    </p>
+    <form name='loginForm' action="<c:url value='/login' />" method='post'>
 
-    <br />
+            <p class="username">
+                <p class="label"><label>User : </label></p>
+                <p class="input"><input type="text" name="username" id="username" required /></p>
+            </p>
 
-    <button><a href="/send"><spring:message code="mailbox.button.send" /></a></button>
+            <p class="password">
+                <p class="label"><label>Password : </label></p>
+                <p class="input"><input type="password" name="password" id="password" required /></p>
+            </p>
 
-    <p><spring:message code="mailbox.abstract.title" /></p>
+            <button type="submit" name="submit">Sign in</button>
 
-    <table class="table">
-        <tr>
-            <th><spring:message code="mailbox.table.sender" /></th>
-            <th><spring:message code="mailbox.table.subject" /></th>
-            <th><spring:message code="mailbox.table.content" /></th>
-        </tr>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-        <c:forEach items="${mails}" var="mail">
-        <tr>
-            <td>${mail.from}</td>
-            <td>${mail.subject}</td>
-            <td>${mail.content}</td>
-        </tr>
-        </c:forEach>
+    </form>
 
-    </table>
 </body>
 </html>
